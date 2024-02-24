@@ -1,5 +1,6 @@
 import json
 import logging
+import re
 import requests
 
 BASE_URL = "https://chromium-review.googlesource.com/"
@@ -32,7 +33,8 @@ def print_landed_cls():
   CLs = decode_response(requests.get(URL))
 
   for cl in CLs:
-    cl_markdown = 'Landed [cl](crrev.com/c/' + cl['submission_id'] + '): ' + cl['subject']
+    cl_subject = re.sub("\[.*?\]", "", cl['subject']) 
+    cl_markdown = '* Landed [cl](crrev.com/c/' + cl['submission_id'] + '):' + cl_subject
     print(cl_markdown)
 
 
