@@ -32,7 +32,7 @@ def print_landed_cls():
   URL = "{}changes/?q=is:merged+owner:{}+-age:{}".format(BASE_URL, OWNER, AGE)
   CLs = decode_response(requests.get(URL))
 
-  for cl in CLs:
+  for cl in reversed(CLs):
     cl_subject = re.sub("\[.*?\]", "", cl['subject']) 
     cl_markdown = '* Landed [cl](crrev.com/c/' + cl['submission_id'] + '):' + cl_subject
     print(cl_markdown)
